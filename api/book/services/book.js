@@ -15,7 +15,9 @@ module.exports = {
 
     const filepath = path.join(__dirname, "../../../public", book.file.url);
     const content = fs.readFileSync(filepath, "utf-8");
-
-    return content.split(" ").slice(_start, _limit);
+    const result = content
+      .split(" ")
+      .slice(Number(_start), Number(_start) + Number(_limit));
+    return result;
   },
 };
