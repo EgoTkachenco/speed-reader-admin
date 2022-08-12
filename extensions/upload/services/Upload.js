@@ -187,7 +187,7 @@ module.exports = {
     if (fileData.mime === "text/plain") {
       const filepath = path.join(__dirname, "../../../public", fileData.url);
       const bookFile = fs.readFileSync(filepath, "utf-8");
-      _.set(fileData, ["formats", "book-size"], bookFile.split(" ").length);
+      _.set(fileData, ["formats", "book-size"], bookFile.length);
     }
 
     return this.add(fileData, { user });
