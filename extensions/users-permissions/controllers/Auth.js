@@ -362,28 +362,28 @@ module.exports = {
       USER: userInfo,
     });
 
-    try {
-      // Send an email to the user.
-      await strapi.plugins["email"].services.email.send({
-        to: user.email,
-        from:
-          settings.from.email || settings.from.name
-            ? `${settings.from.name} <${settings.from.email}>`
-            : undefined,
-        replyTo: settings.response_email,
-        subject: settings.object,
-        text: settings.message,
-        html: settings.message,
-      });
-    } catch (err) {
-      return ctx.badRequest(
-        null,
-        formatError({
-          id: "Auth.form.error.user.smtp",
-          message: "Could not send email.",
-        })
-      );
-    }
+    // try {
+    //   // Send an email to the user.
+    //   await strapi.plugins["email"].services.email.send({
+    //     to: user.email,
+    //     from:
+    //       settings.from.email || settings.from.name
+    //         ? `${settings.from.name} <${settings.from.email}>`
+    //         : undefined,
+    //     replyTo: settings.response_email,
+    //     subject: settings.object,
+    //     text: settings.message,
+    //     html: settings.message,
+    //   });
+    // } catch (err) {
+    //   return ctx.badRequest(
+    //     null,
+    //     formatError({
+    //       id: "Auth.form.error.user.smtp",
+    //       message: "Could not send email.",
+    //     })
+    //   );
+    // }
 
     // Update the user.
     await strapi
