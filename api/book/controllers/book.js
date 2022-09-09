@@ -16,7 +16,7 @@ module.exports = {
 
     return entities.map((entity) => {
       entity.size = entity.file?.formats ? entity.file.formats["book-size"] : 0;
-      return _.pick(entity, ["id", "name", "size"]);
+      return _.pick(entity, ["id", "name", "size", "picture", "author"]);
     });
   },
   async findOneText(ctx) {
