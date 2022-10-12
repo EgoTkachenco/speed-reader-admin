@@ -8,6 +8,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const readline = require("readline");
 const crypto = require("crypto");
 const util = require("util");
 const _ = require("lodash");
@@ -183,11 +184,12 @@ module.exports = {
       width,
       height,
     });
+
     // Count text size for .txt files
     if (fileData.mime === "text/plain") {
       const filepath = path.join(__dirname, "../../../public", fileData.url);
-      const bookFile = fs.readFileSync(filepath, "utf-8");
-      _.set(fileData, ["formats", "book-size"], bookFile.length);
+      const lines_count = await getFileLinesCount(filepath);
+      _.set(fileData, ["formats", "book-size"], lines_count);
     }
 
     return this.add(fileData, { user });
@@ -283,8 +285,8 @@ module.exports = {
     // Count text size for .txt files
     if (fileData.mime === "text/plain") {
       const filepath = path.join(__dirname, "../../../public", fileData.url);
-      const bookFile = fs.readFileSync(filepath, "utf-8");
-      _.set(fileData, ["formats", "book-size"], bookFile.length);
+      const lines_count = await getFileLinesCount(filepath);
+      _.set(fileData, ["formats", "book-size"], lines_count);
     }
 
     return this.update({ id }, fileData, { user });
@@ -421,3 +423,15 @@ module.exports = {
       .set({ value });
   },
 };
+
+async function getFileLinesCount(path_to_file) {
+  let rl = readline.createInterface({
+    input: fs.createReadStream(path_to_file),
+  });
+  let current_line = 0;
+
+  for await (const line of rl) {
+    current_line++;
+  }
+  return current_line;
+}
