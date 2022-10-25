@@ -188,8 +188,9 @@ module.exports = {
     // Count text size for .txt files
     if (fileData.mime === "text/plain") {
       const filepath = path.join(__dirname, "../../../public", fileData.url);
-      const lines_count = await getFileLinesCount(filepath);
+      const { lines_count, words_count } = await getFileLinesCount(filepath);
       _.set(fileData, ["formats", "book-size"], lines_count);
+      _.set(fileData, ["formats", "book-words-size"], words_count);
     }
 
     return this.add(fileData, { user });
@@ -285,8 +286,9 @@ module.exports = {
     // Count text size for .txt files
     if (fileData.mime === "text/plain") {
       const filepath = path.join(__dirname, "../../../public", fileData.url);
-      const lines_count = await getFileLinesCount(filepath);
+      const { lines_count, words_count } = await getFileLinesCount(filepath);
       _.set(fileData, ["formats", "book-size"], lines_count);
+      _.set(fileData, ["formats", "book-words-size"], words_count);
     }
 
     return this.update({ id }, fileData, { user });
@@ -429,9 +431,11 @@ async function getFileLinesCount(path_to_file) {
     input: fs.createReadStream(path_to_file),
   });
   let current_line = 0;
+  let words_count = 0;
 
   for await (const line of rl) {
     current_line++;
+    words_count += line.trim().split(" ").length;
   }
-  return current_line;
+  return { lines_count: current_line, words_count };
 }
