@@ -14,7 +14,7 @@ const readline = require("readline");
  */
 
 module.exports = () => {
-  addWordsCountToBooks();
+  // addWordsCountToBooks();
 };
 
 async function addWordsCountToBooks() {
