@@ -8,14 +8,20 @@ const readline = require("readline");
  */
 
 module.exports = {
-  async findOneText({ id }, { _start = 0, _limit = -1 }) {
+  async findOneText({ id }, { _start = 0, _limit = -1, size = 40 }) {
     if (!id) throw new Error("id required");
 
     const book = await strapi.query("book").findOne({ id });
     if (!book) throw new Error("Book not found");
 
     const filepath = path.join(__dirname, "../../../public", book.file.url);
-    const result = await getFileLines(filepath, _start, _limit);
+    // const result = await getFileLines(filepath, _start, _limit);
+    const result = await strapi.services["book-file"].getFileFormatedText(
+      filepath,
+      _start,
+      _limit,
+      size
+    );
     return result;
   },
 };
