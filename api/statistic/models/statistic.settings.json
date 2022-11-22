@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "statistics",
+  "info": {
+    "name": "Statistic"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "date"
+    }
+  }
+}
