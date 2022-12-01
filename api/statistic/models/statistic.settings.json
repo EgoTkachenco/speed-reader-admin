@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "statistics",
   "info": {
-    "name": "Statistic"
+    "name": "Statistic",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -18,7 +19,13 @@
       "type": "integer"
     },
     "date": {
-      "type": "date"
+      "type": "datetime"
+    },
+    "average_speed": {
+      "type": "float"
+    },
+    "book": {
+      "model": "book"
     }
   }
 }

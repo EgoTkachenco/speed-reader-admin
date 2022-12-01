@@ -9,9 +9,12 @@ module.exports = {
       ...query,
     });
     all_data = all_data.reduce(
-      (acc, { user_id, count, date }) => ({
+      (acc, { user_id, count, date, average_speed, book }) => ({
         ...acc,
-        [user_id]: [...(acc[user_id] || []), { count, date }],
+        [user_id]: [
+          ...(acc[user_id] || []),
+          { count, date, average_speed, book: book.name },
+        ],
       }),
       {}
     );
@@ -41,7 +44,9 @@ module.exports = {
     let result = {
       user_id: id,
       total_count: data.reduce((acc, stat) => (acc += stat.count), 0),
-      statistic: data.map((stat) => _.pick(stat, ["date", "count"])),
+      statistic: data.map((stat) =>
+        _.pick(stat, ["date", "count", "average_speed", "book.name"])
+      ),
     };
     return result;
   },
@@ -50,6 +55,8 @@ module.exports = {
     const body = ctx.request.body;
     if (!body.user_id) return ctx.badRequest("user_id required");
     if (!body.date) return ctx.badRequest("date required");
+    if (!body.book) return ctx.badRequest("book required");
+    if (!body.speed) return ctx.badRequest("speed required");
 
     const date_statistic = await strapi
       .query("statistic")
@@ -57,13 +64,29 @@ module.exports = {
 
     let entity;
 
+    const speed = body.speed;
+    delete body.speed;
     if (date_statistic)
       entity = await strapi.services.statistic.update(
         { id: date_statistic.id },
-        { count: date_statistic.count + body.count }
+        {
+          count: date_statistic.count + body.count,
+          average_speed: (date_statistic.average_speed + speed) / 2,
+        }
       );
-    else entity = await strapi.services.statistic.create(body);
+    else
+      entity = await strapi.services.statistic.create({
+        ...body,
+        average_speed: speed,
+      });
 
-    return _.pick(entity, ["id", "user_id", "date", "count"]);
+    return _.pick(entity, [
+      "id",
+      "user_id",
+      "date",
+      "count",
+      "average_speed",
+      "book.name",
+    ]);
   },
 };
