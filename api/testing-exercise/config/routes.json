@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/testing-exercises",
+      "handler": "testing-exercise.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/testing-exercises/count",
+      "handler": "testing-exercise.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/testing-exercises/:id",
+      "handler": "testing-exercise.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/testing-exercises",
+      "handler": "testing-exercise.create",
+      "config": {
+        "policies": []
+      }
+    },
+		{
+      "method": "POST",
+      "path": "/testing-exercises/:id/submit",
+      "handler": "testing-exercise.submitQuiz",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/testing-exercises/:id",
+      "handler": "testing-exercise.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/testing-exercises/:id",
+      "handler": "testing-exercise.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

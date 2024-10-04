@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testing_exercises",
+  "info": {
+    "name": "Testing Exercise",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "book": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "questions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "quiz.question"
+    },
+    "difficulty": {
+      "type": "enumeration",
+      "enum": [
+        "short",
+        "long"
+      ]
+    }
+  }
+}

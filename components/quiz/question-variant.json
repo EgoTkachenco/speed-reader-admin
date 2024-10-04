@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_quiz_question_variants",
+  "info": {
+    "name": "Question Variant",
+    "icon": "font"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "isCorrect": {
+      "type": "boolean"
+    }
+  }
+}

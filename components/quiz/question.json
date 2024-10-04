@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_quiz_questions",
+  "info": {
+    "name": "Question",
+    "icon": "info-circle",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "variants": {
+      "type": "component",
+      "repeatable": true,
+      "component": "quiz.question-variant"
+    }
+  }
+}

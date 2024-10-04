@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testing_results",
+  "info": {
+    "name": "Testing Result",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "exercise": {
+      "model": "testing-exercise"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "answers": {
+      "type": "json"
+    },
+    "reading_time": {
+      "type": "biginteger"
+    }
+  }
+}
