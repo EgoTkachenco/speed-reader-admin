@@ -30,6 +30,7 @@ module.exports = {
 	async submitQuiz(ctx) {
 		const id = ctx.params.id
 		const body = ctx.request.body
+		console.log(body);
 		return await strapi.services['testing-result'].create({ exercise: id, ...body });
 	}
 };
