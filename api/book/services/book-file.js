@@ -8,13 +8,14 @@ module.exports = {
     });
     const book_formater = new BookFormater(row_size);
     let i = 0;
-    for await (let line of rl) {
+		for await (let line of rl) {
+			book_formater.handleNewLine(line);
+      // if (i >= +start) book_formater.handleNewLine(line);
+			// if (i > +start + +limit) break;
       i++;
-      if (i >= start) book_formater.handleNewLine(line);
-      if (i > start + limit) break;
     }
 
-    return book_formater.get_text();
+    return book_formater.get_text().slice(start, +start + +limit);
   },
 };
 
@@ -38,16 +39,20 @@ class BookFormater {
       return this.addEmptyLine();
     }
     // make line centered
-    if (line.length > 0 && (line[0] === " " || line[0]) && line[1] === " ") {
+    if (line.length > 1 && line.startsWith("  ")) {
       return this.addCenteredLine(line);
     }
 
-    this.addLine(line);
+    return this.addLine(line);
   }
 
-  addEmptyLine() {
-    this.addLine();
-    return this.text.push("");
+	addEmptyLine() {
+		if (this.tail.length > 0) {
+			// finish row with tail
+			this.text.push(this.tail.join(" "));
+			this.tail = [];
+		}
+		this.text.push('');
   }
 
   addCenteredLine(line) {
