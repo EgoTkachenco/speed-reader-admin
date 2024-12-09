@@ -1,4 +1,5 @@
 "use strict";
+const { format } = require("date-fns");
 const _ = require("lodash");
 
 module.exports = {
@@ -88,5 +89,44 @@ module.exports = {
       "average_speed",
       "book.name",
     ]);
-  },
+	},
+	
+	async getStatistic(ctx) {
+		const { id } = ctx.params;
+    const query = ctx.query;
+    let data = await strapi.services.statistic.find({
+      user_id: id,
+      _limit: -1,
+      ...query,
+    });
+		
+		const groups = {}
+
+		// Group data by days
+		for (let i = 0; i < data.length; i++) {
+			const date = format(data[i].date, 'yyyy-MM-dd');
+			if (groups[date]) {
+				groups[date].count += data[i].count;
+				groups[date].average_speed += data[i].average_speed;
+				groups[date].size += 1;
+			} else {
+				groups[date] = {
+					count: data[i].count,
+					average_speed: data[i].average_speed,
+					size: 1
+				};
+			}
+		}
+
+		// Calculate average score
+		const result = []
+		for (const key in groups) {
+			result.push({
+				date: key,
+				count: (groups[key].count / groups[key].size).toFixed(2),
+				average_speed: (groups[key].average_speed / groups[key].size).toFixed(2)
+			})
+		}
+    return result;
+	}
 };

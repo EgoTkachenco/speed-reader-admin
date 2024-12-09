@@ -16,6 +16,14 @@
         "policies": []
       }
     },
+		{
+      "method": "GET",
+      "path": "/testing-results/statistics",
+      "handler": "testing-result.getStatistics",
+      "config": {
+        "policies": []
+      }
+    },
     {
       "method": "GET",
       "path": "/testing-results/:id",
