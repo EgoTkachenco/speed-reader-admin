@@ -22,8 +22,8 @@ module.exports = {
 	},
 
 	async getStatistics(ctx) {
-		const user = ctx.query.user
-		let entities = await strapi.services['testing-result'].find({ user, _limit: -1 });
+		const user_id = ctx.query.user_id
+		let entities = await strapi.services['testing-result'].find({ user_id, _limit: -1 });
 
 		entities.map(entity => {
 
