@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/reading-statistics",
+      "handler": "reading-statistic.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/reading-statistics/count",
+      "handler": "reading-statistic.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/reading-statistics/:id",
+      "handler": "reading-statistic.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/reading-statistics",
+      "handler": "reading-statistic.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/reading-statistics/:id",
+      "handler": "reading-statistic.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/reading-statistics/:id",
+      "handler": "reading-statistic.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

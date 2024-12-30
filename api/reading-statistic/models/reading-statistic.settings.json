@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reading_statistics",
+  "info": {
+    "name": "Reading Statistic"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+		"user_id": {
+      "type": "string"
+    },
+		"book": {
+      "model": "book"
+    },
+		"date": {
+      "type": "datetime"
+    },
+    "words": {
+      "type": "integer"
+    },
+		"time": {
+      "type": "integer"
+    },
+    "wpm": {
+			"type": "float"
+		},
+		"comprehension": {
+      "type": "integer"
+    }
+  }
+}
